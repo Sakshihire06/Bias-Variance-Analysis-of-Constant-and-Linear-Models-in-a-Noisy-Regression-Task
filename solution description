@@ -1,0 +1,56 @@
+## First, I supposed that the Target function y = ((x − 2) ^2 + 4 + noise) is with the Oracle,
+where noise is random disturbance having a normal distribution with mean=0 and standard
+deviation=0.2 and my x range from -10 to 10. So, I started by defining this function in python
+and altered the function by np. random.choice to select 3 data points from the target function.
+3 data points is shown in my output as x value and y true values. This just looks like that
+Oracle knows the target function and it is giving us 3 random points.
+
+Now, I suppose that I have only these 3 data points (no target function) and I thought of 2
+hypotheses (mentioned in question) one by one such that these hypotheses fit these 3 data
+
+points.
+
+Hypothesis 1: H0= constant, where constant=mean of y true values.
+
+Hypothesis 2: H1= ax+b, now this equation is of a line so best fit line should have least Mean
+
+Square Error (MSE).
+
+MSE= (1/N) ∑ (from i=1to N​) (ax i ​+b−yi i )^2
+
+So, for this hypothesis, my a= ∑((x i ​−x_mean)*(y i −y_mean​)​) / ∑ ((x i ​−x_mean)^2)
+
+And b=(y_mean)−a*(x_mean).
+
+So, now I have value of x, y true value(from oracle target function), H0 value, H1 value.
+
+Now I plotted a same graph for all the 3 functions.
+
+Now to find which Hypothesis best resemble Target function. I need to go and check bias and
+
+variance. So, I used formula-
+
+H0_mean=mean of all values of H0 for 3 data points.
+Bais^2= mean of ​(y−H0_mean)
+Variance = mean ([(H0) −(H0_mean)]^2)
+
+expected out-of-sample error = E out ​= Bias^2 + Variance + (standard deviation=0.2)^2
+Result and interpretation:
+Hypothesis Bais^2 Variance E out ​
+1: y=constant high 0(as H0= H0_mean= constant) low
+2: y=ax+b Even higher high high
+
+In H0, Variance is 0, so only thing accounting for E out ​ is Bais^2.
+
+In H1, both Bais^2 and variance account for E out ​, high variance high E out ​, making model
+worsen. Also with only 3 points, the least squares solution is unstable, and the computed
+slope a varies significantly across different datasets. A linear model is not well-suited to
+approximate a quadratic function. The linear model’s inability to capture the curvature
+
+increases its bias.
+
+Finally, if the goal is purely lower E out ​, H0 (constant function) is better in this case, despite its
+
+high bias. H1 suffers from extreme variance, making it unreliable.
+
+Neither model is truly good. A quadratic model h(x)=ax^2+bx+c would be a better choice.
